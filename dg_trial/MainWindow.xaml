@@ -1,0 +1,279 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dg_trial"
+        xmlns:ResizableItems="clr-namespace:dg_trial.ResizableItems" x:Class="dg_trial.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:DatetimeToStringConverter x:Key="DatetimeToStringConverter"/>
+        <local:StringConcatConverter x:Key="StringConcatConverter"/>
+        <local:TotalAmountIncludingTaxToStringConverter x:Key="TotalAmountIncludingTaxToStringConverter"/>
+        <local:RecognizingStatusToStringConverter x:Key="RecognizingStatusToStringConverter"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <TabControl>
+        <TabItem Header="1111111111"/>
+        <TabItem Header="2222222">
+            <Grid>
+                <DataGrid x:Name="dataGrid"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Extended"
+                  ItemsSource="{Binding Items}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding DataContext.AllSelected, ElementName=dataGrid}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="时间" Width="90">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox HorizontalContentAlignment="Center"
+                                     IsReadOnly="True"
+                                     FontSize="9px"
+                                     Text="{Binding Time, ConverterParameter=b, Converter={StaticResource DatetimeToStringConverter}}"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="序号" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox BorderThickness="0"
+                                     Background="Transparent"
+                                     IsReadOnly="True"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     Foreground="#FF565656">
+                                        <TextBox.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="编辑" Command="{Binding EditSerialNumberCommand}"/>
+                                            </ContextMenu>
+                                        </TextBox.ContextMenu>
+                                        <MultiBinding Converter="{StaticResource StringConcatConverter}" ConverterParameter="-">
+                                            <Binding Path="BatchName"/>
+                                            <Binding Path="NumberInBatch"/>
+                                        </MultiBinding>
+                                    </TextBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="发票类型" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding InvoiceType}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="发票代码" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding InvoiceCode}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="发票号码" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding InvoiceNumber}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="价税合计" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding TotalAmountIncludingTax, Converter={StaticResource TotalAmountIncludingTaxToStringConverter}}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="验真时间" Width="90">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox HorizontalContentAlignment="Center"
+                                     IsReadOnly="True"
+                                     FontSize="9px"
+                                     Text="{Binding VerifyingTime, ConverterParameter=b, Converter={StaticResource DatetimeToStringConverter}}"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="购买方名称" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding BuyerName}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="识别状态" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="75">
+                                        <TextBox Text="{Binding RecognizingStatus, Converter={StaticResource RecognizingStatusToStringConverter}}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"/>
+                                        <Grid Visibility="Collapsed">
+                                            <ToggleButton x:Name="RecognizingReasonToggle" >
+                                                <Path StrokeThickness="1" Stroke="#E10000" Width="16px" Height="16px">
+                                                    <Path.Data>
+                                                        <GeometryGroup>
+                                                            <EllipseGeometry Center="8,8" RadiusX="7" RadiusY="7"/>
+                                                            <EllipseGeometry Center="8,5" RadiusX="0.5" RadiusY="0.5"/>
+                                                            <LineGeometry StartPoint="8,7" EndPoint="8,12"/>
+                                                        </GeometryGroup>
+                                                    </Path.Data>
+                                                </Path>
+                                            </ToggleButton>
+                                        </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="验真状态" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="75">
+                                        <TextBox Text="{Binding VerifyingStatus}"
+                                      Foreground="{Binding VerifyingStatus}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"/>
+                                        <Grid Visibility="Collapsed">
+                                            <ToggleButton x:Name="RecognizingReasonToggle" >
+                                                <Path StrokeThickness="1" Stroke="#E10000" Width="16px" Height="16px">
+                                                    <Path.Data>
+                                                        <GeometryGroup>
+                                                            <EllipseGeometry Center="8,8" RadiusX="7" RadiusY="7"/>
+                                                            <EllipseGeometry Center="8,5" RadiusX="0.5" RadiusY="0.5"/>
+                                                            <LineGeometry StartPoint="8,7" EndPoint="8,12"/>
+                                                        </GeometryGroup>
+                                                    </Path.Data>
+                                                </Path>
+                                            </ToggleButton>
+                                        </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="查看" Width="50">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Cursor="Hand" Click="OnShowDetailsButtonClicked">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <ContentPresenter Content="{TemplateBinding Content}"/>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <TextBlock Text="查看"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" Foreground="Blue"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="销售方名称" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding SellerName}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="购买方税号" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding BuyerId}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="销售方税号" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding SellerId}"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#FF565656"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="333333333333">
+            <Canvas>
+                <Canvas.Resources>
+                    <Style x:Key="aa" TargetType="{x:Type ResizableItems:Item}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox Text="{Binding DataContext.Time, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Canvas.Resources>
+                <ResizableItems:Container x:Name="cc" HorizontalAlignment="Left" Height="116" VerticalAlignment="Top" Width="469" Canvas.Left="95" Canvas.Top="51" ClipToBounds="True">
+                    <ResizableItems:Container.Items>
+                        <ResizableItems:Item Style="{StaticResource aa}">
+                            <ResizableItems:Item.DataContext>
+                                <local:ItemViewModel Time="05/03/2019 12:13:09 +08:00"/>
+                            </ResizableItems:Item.DataContext>
+                        </ResizableItems:Item>
+                        <ResizableItems:Item/>
+                        <ResizableItems:Item/>
+                        <ResizableItems:Item/>
+                        <ResizableItems:Item/>
+                        <ResizableItems:Item/>
+                    </ResizableItems:Container.Items>
+                </ResizableItems:Container>
+
+            </Canvas>
+        </TabItem>
+    </TabControl>
+</Window>

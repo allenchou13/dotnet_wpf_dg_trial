@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:dg_trial.ResizableItems">
+    <Style TargetType="local:Item">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:Item">
+                    <Border Margin="20,5">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Margin="5,0">
+                                <TextBlock Text="item"/>
+                                <TextBlock Text="{Binding DataContext.A, RelativeSource={RelativeSource TemplatedParent}}" Margin="10,0,0,0"/>
+                            </StackPanel>
+                            <Rectangle Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Left"></Rectangle>
+                            <Rectangle Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Right"></Rectangle>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
