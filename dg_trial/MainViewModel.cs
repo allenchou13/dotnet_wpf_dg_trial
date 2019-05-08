@@ -85,6 +85,19 @@ namespace dg_trial
             }
         }
 
+        public string Password { get; set; }
+
+        public RelayCommand AAACommand
+        {
+            get
+            {
+                return new RelayCommand(_=> {
+                    var password = this.Password;
+                    ;
+                });
+            }
+        }
+
 
         private void NotifyPropertyChanged(string name)
         {

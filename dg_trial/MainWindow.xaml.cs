@@ -28,5 +28,32 @@ namespace dg_trial
         {
             
         }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var password = this.pb.Password;
+            var vm = this.DataContext as MainViewModel;
+            vm.Password = password;
+            if(!string.IsNullOrEmpty(password) || this.pb.IsKeyboardFocusWithin)
+            {
+                this.pbHint.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                this.pbHint.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void OnPBFocusChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.pb.Password) || this.pb.IsKeyboardFocusWithin)
+            {
+                this.pbHint.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                this.pbHint.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

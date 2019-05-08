@@ -1,10 +1,12 @@
-﻿<Window
+﻿<Window x:Class="dg_trial.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:dg_trial"
-        xmlns:ResizableItems="clr-namespace:dg_trial.ResizableItems" xmlns:Table="clr-namespace:dg_trial.Table" x:Class="dg_trial.MainWindow"
+        xmlns:ResizableItems="clr-namespace:dg_trial.ResizableItems" xmlns:Table="clr-namespace:dg_trial.Table"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -19,6 +21,14 @@
     <TabControl>
         <TabItem Header="1111111111">
             <Grid>
+                <Grid x:Name="pbWrapper" Margin="129,68,286,253">
+                    <TextBlock x:Name="pbHint" Text="密码" VerticalAlignment="Center" Margin="3,0,0,0"/>
+                    <PasswordBox x:Name="pb" PasswordChanged="OnPasswordChanged" VerticalContentAlignment="Center" Background="Transparent" IsKeyboardFocusWithinChanged="OnPBFocusChanged" IsEnabled="False">
+                    </PasswordBox>
+                </Grid>
+                <local:ISPasswordBox HorizontalAlignment="Left" Height="53" Margin="108,10,0,0" VerticalAlignment="Top" Width="174"/>
+                <Button Content="Button" HorizontalAlignment="Left" Margin="614,107,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AAACommand}"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="129,189,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
             </Grid>
         </TabItem>
         <TabItem Header="2222222">
@@ -263,7 +273,7 @@
                 </Canvas.Resources>
                 <ResizableItems:Container x:Name="cc" HorizontalAlignment="Left" Height="116" VerticalAlignment="Top" Width="469" Canvas.Left="95" Canvas.Top="51" ClipToBounds="True">
                     <ResizableItems:Container.Items>
-                        <ResizableItems:Item> </ResizableItems:Item>
+                        <ResizableItems:Item></ResizableItems:Item>
                         <ResizableItems:Item/>
                         <ResizableItems:Item/>
                         <ResizableItems:Item/>
@@ -278,7 +288,7 @@
             <Grid>
                 <Table:TableControl Background="#FFFAFAFA" ItemSource="{Binding Items}">
                     <Table:TableControl.Columns>
-                        <Table:TableColumn> </Table:TableColumn>
+                        <Table:TableColumn></Table:TableColumn>
                         <Table:TableColumn/>
                         <Table:TableColumn/>
                         <Table:TableColumn/>
