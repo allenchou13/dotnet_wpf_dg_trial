@@ -6,16 +6,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 
-namespace dg_trial.ResizableItems
+namespace dg_trial.Table
 {
-    public class Item : Control
+    public class TableColumn : Control
     {
-
-        public Item()
+        public Style CellStyle
         {
+            get { return (Style)GetValue(CellStyleProperty); }
+            set { SetValue(CellStyleProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for CellStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CellStyleProperty =
+            DependencyProperty.Register("CellStyle", typeof(Style), typeof(TableColumn), new PropertyMetadata(null));
+
+
 
         #region drag resize 
 
@@ -53,7 +59,7 @@ namespace dg_trial.ResizableItems
             }
             base.OnMouseLeave(e);
         }
-        
+
         private void ResizeOnMouseMove(MouseEventArgs e)
         {
             if (isResizing)
@@ -61,7 +67,7 @@ namespace dg_trial.ResizableItems
                 var pos = e.GetPosition(this);
                 var shift = pos - lastMousePosition;
                 var newWidth = this.ActualWidth + shift.X;
-                if(newWidth > 0)
+                if (newWidth > 0)
                 {
                     this.Width = newWidth;
                 }
@@ -72,38 +78,7 @@ namespace dg_trial.ResizableItems
         #endregion
 
         #region change cursor type
-        private DispatcherTimer timer = new DispatcherTimer();
         private bool isCursorResizeRype = false;
-        private void StartTimer()
-        {
-            timer.Interval = TimeSpan.FromMilliseconds(100);
-            timer.Tick += Timer_Tick;
-            timer.IsEnabled = true;
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (this.IsMouseOver)
-            {
-                var x = Mouse.GetPosition(this).X;
-                if (x < this.ActualWidth && x > this.ActualHeight - 20)
-                {
-                    if (!isCursorResizeRype)
-                    {
-                        this.Cursor = Cursors.SizeWE;
-                        isCursorResizeRype = true;
-                    }
-                }
-                else
-                {
-                    if (isCursorResizeRype)
-                    {
-                        Mouse.SetCursor(Cursors.Arrow);
-                        isCursorResizeRype = false;
-                    }
-                }
-            }
-        }
 
         private void ChangeCursorOnMouseMove(MouseEventArgs e)
         {
@@ -142,12 +117,8 @@ namespace dg_trial.ResizableItems
         protected override void OnRender(DrawingContext drawingContext)
         {
             drawingContext.DrawRectangle(Brushes.Transparent, null, new System.Windows.Rect(0, 0, this.RenderSize.Width, this.RenderSize.Height));
-            drawingContext.DrawLine(
-                new Pen(Brushes.Gray, 1),
-                new System.Windows.Point(this.RenderSize.Width-1, 0),
-                new System.Windows.Point(this.RenderSize.Width - 1, this.RenderSize.Height));
+            drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new Point(RenderSize.Width, 0), new Point(RenderSize.Width, RenderSize.Height));
             base.OnRender(drawingContext);
         }
-
     }
 }

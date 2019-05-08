@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dg_trial"
-        xmlns:ResizableItems="clr-namespace:dg_trial.ResizableItems" x:Class="dg_trial.MainWindow"
+        xmlns:ResizableItems="clr-namespace:dg_trial.ResizableItems" xmlns:Table="clr-namespace:dg_trial.Table" x:Class="dg_trial.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -17,7 +17,10 @@
         <local:MainViewModel/>
     </Window.DataContext>
     <TabControl>
-        <TabItem Header="1111111111"/>
+        <TabItem Header="1111111111">
+            <Grid>
+            </Grid>
+        </TabItem>
         <TabItem Header="2222222">
             <Grid>
                 <DataGrid x:Name="dataGrid"
@@ -260,11 +263,7 @@
                 </Canvas.Resources>
                 <ResizableItems:Container x:Name="cc" HorizontalAlignment="Left" Height="116" VerticalAlignment="Top" Width="469" Canvas.Left="95" Canvas.Top="51" ClipToBounds="True">
                     <ResizableItems:Container.Items>
-                        <ResizableItems:Item Style="{StaticResource aa}">
-                            <ResizableItems:Item.DataContext>
-                                <local:ItemViewModel Time="05/03/2019 12:13:09 +08:00"/>
-                            </ResizableItems:Item.DataContext>
-                        </ResizableItems:Item>
+                        <ResizableItems:Item> </ResizableItems:Item>
                         <ResizableItems:Item/>
                         <ResizableItems:Item/>
                         <ResizableItems:Item/>
@@ -274,6 +273,18 @@
                 </ResizableItems:Container>
 
             </Canvas>
+        </TabItem>
+        <TabItem Header="444444444444">
+            <Grid>
+                <Table:TableControl Background="#FFFAFAFA" ItemSource="{Binding Items}">
+                    <Table:TableControl.Columns>
+                        <Table:TableColumn> </Table:TableColumn>
+                        <Table:TableColumn/>
+                        <Table:TableColumn/>
+                        <Table:TableColumn/>
+                    </Table:TableControl.Columns>
+                </Table:TableControl>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>

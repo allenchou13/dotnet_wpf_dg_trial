@@ -60,7 +60,10 @@
     <Compile Include="ResizableItems\Item.cs" />
     <Compile Include="ItemViewModel.cs" />
     <Compile Include="StringConcatConverter.cs" />
+    <Compile Include="Table\TableCell.cs" />
+    <Compile Include="Table\TableColumn.cs" />
     <Compile Include="Table\TableControl.cs" />
+    <Compile Include="Table\TableRow.cs" />
     <Compile Include="TotalAmountIncludingTaxToStringConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +79,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResizableItems\Item.Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\TableCell.Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\TableColumn.Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

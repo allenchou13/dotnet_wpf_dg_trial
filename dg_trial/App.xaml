@@ -7,6 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResizableItems/Item.Generic.xaml"/>
+                <ResourceDictionary Source="Table/TableColumn.Generic.xaml"/>
+                <ResourceDictionary Source="Table/TableCell.Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
