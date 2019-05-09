@@ -26,7 +26,6 @@
                     <PasswordBox x:Name="pb" PasswordChanged="OnPasswordChanged" VerticalContentAlignment="Center" Background="Transparent" IsKeyboardFocusWithinChanged="OnPBFocusChanged" IsEnabled="False">
                     </PasswordBox>
                 </Grid>
-                <local:ISPasswordBox HorizontalAlignment="Left" Height="53" Margin="108,10,0,0" VerticalAlignment="Top" Width="174"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="614,107,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AAACommand}"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="129,189,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
             </Grid>
